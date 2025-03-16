@@ -1,7 +1,7 @@
-project_name
+MLOps Sentiment Analysis
 ==============================
 
-A short description of the project.
+This is an end to end MLOps Project which checks whether a given sentiment is positive or negative
 
 Project Organization
 ------------
