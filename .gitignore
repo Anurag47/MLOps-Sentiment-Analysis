@@ -175,5 +175,10 @@ cython_debug/
 cred.txt
 
 # folders
-/notebooks
-/data
+notebooks/
+data/
+!src/data/
+
+local_s3/
+
+models/
