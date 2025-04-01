@@ -41,9 +41,11 @@ jobs:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
       
+      - name: Install dependencies from cache
+        run: |
+          pip install --no-deps -r requirements.txt
+      
       - name: run pipeline
-        # env:
-        #   CAPSTONE_TEST: ${{ secrets.CAPSTONE_TEST }}
         run: |
           dvc repro
   
