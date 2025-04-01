@@ -180,3 +180,5 @@ data/
 !src/data/
 
 local_s3/
+
+models/
