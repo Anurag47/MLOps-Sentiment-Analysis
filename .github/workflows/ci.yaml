@@ -2,6 +2,10 @@ name: CI Pipeline
 
 on: push
 
+env:
+  REPO_OWNER: ${{ secrets.REPO_OWNER }}
+  REPO_NAME: ${{ secrets.REPO_NAME }}
+
 jobs:
   python-setup:
     name: Python Setup and Cache Dependencies
