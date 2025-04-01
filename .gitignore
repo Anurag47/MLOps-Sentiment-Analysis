@@ -181,4 +181,5 @@ data/
 
 local_s3/
 
-models/
+models/model.pkl 
+models/vectorizer.pkl
