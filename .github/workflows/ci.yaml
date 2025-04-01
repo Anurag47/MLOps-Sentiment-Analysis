@@ -35,6 +35,12 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Cache DVC Cache Directory
+        uses: actions/cache@v3
+        with:
+          path: .dvc/cache
+          key: dvc-cache-${{ hashFiles('dvc.lock', '.dvc/config') }}
+
       - name: run pipeline
         run: |
           dvc repro
@@ -46,3 +52,31 @@ jobs:
       - name: Promote model to production
         if: success()
         run: python scripts/promote_model.py
+
+  flask-app-test:
+    name: Flask App Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: Use cached dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+      
+      - name: Install dependencies from cache
+        run: |
+          pip install --no-deps -r requirements.txt
+
+      - name: Restore DVC Cache from Cache
+        uses: actions/cache@v3
+        with:
+          path: .dvc/cache
+          key: dvc-cache-${{ hashFiles('dvc.lock', '.dvc/config') }}
+          restore-keys: |
+            dvc-cache-
+      
+      - name: test flask app
+        run: python -m unittest tests/test_flask_app.py
